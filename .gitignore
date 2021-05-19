@@ -1,0 +1,21 @@
+.DS_Store
+
+# Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# Log Files
+*.log
+
+# Local Variable Override Files
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Local CLI Configuration Files
+.terraformrc
+terraform.rc
