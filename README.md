@@ -3,6 +3,8 @@
 A terraform module to provide a private API Gateway within aws which is accessed via a custom domain name and routed through an NLB to a VPC endpoint.
 This includes a dummy API as this is required to build the stage. Further APIs can be deployed to the gateway using the parameters that are output to SSM.
 
+The url for the api gateway will be api.<public_zone> for example the supplier url is: api.supplier-service.dev.cefcloud.net
+
 ## Usage
 ```
 provider "aws" {
@@ -20,6 +22,29 @@ module "api_gateway" {
   vpc_id              = data.terraform_remote_state.vpc.outputs.vpc_id
 }
 
+```
+Include these in a data-sources.tf file
+
+```
+data "terraform_remote_state" "vpc" {
+  backend = "s3"
+
+  config = {
+    bucket = "s3-euw1-management-tf-shared-tools-tf-remote-state-001"
+    key    = "supplier-service/<environment>/<environment/other>/infrastucture/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
+
+data "terraform_remote_state" "route53" {
+  backend = "s3"
+
+  config = {
+    bucket = "s3-euw1-management-tf-shared-tools-tf-remote-state-001"
+    key    = "supplier-service/<environment>/globals/route53/terraform.tfstate"
+    region = "eu-west-1"
+  }
+}
 ```
 
 ## Providers
