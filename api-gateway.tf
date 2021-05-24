@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "private" {
-  name                         = "apig-${var.environment}-${var.project}"
+  name                         = "apig-${local.name}-private"
   disable_execute_api_endpoint = true
   endpoint_configuration {
     types            = ["PRIVATE"]
@@ -8,7 +8,7 @@ resource "aws_api_gateway_rest_api" "private" {
 
   tags = merge(
     {
-      Name = "apig-${local.name}"
+      Name = "apig-${local.name}-private"
     },
     local.tags,
   )
