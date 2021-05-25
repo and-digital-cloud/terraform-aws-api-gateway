@@ -1,5 +1,6 @@
 resource "aws_security_group" "allow_vpc_to_api_gateway" {
-  name        = "sgr-${local.name}"
+  name         = "sgr-${local.region_id}-${var.environment}-t-${var.project}-api-gw"
+
   description = "Allow access between the vpc and the api gateway"
   vpc_id      = var.vpc_id
 }

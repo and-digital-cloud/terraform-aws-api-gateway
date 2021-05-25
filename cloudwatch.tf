@@ -1,10 +1,10 @@
 resource "aws_cloudwatch_log_group" "api_gateway" {
-  name              = "cwlg-${local.name}-apig"
+  name              = "cwlg-${local.name}-api"
   retention_in_days = 7
 
   tags = merge(
     {
-      Name = "cwlg-${local.name}-apig"
+      Name = "cwlg-${local.name}-api"
     },
     local.tags
   )
