@@ -14,7 +14,7 @@ resource "aws_vpc_endpoint" "private" {
 
   tags = merge(
     {
-      Name = "vpce-${local.name}"
+      Name = "vpce-${local.name}-api-gw"
     },
     local.tags,
   )

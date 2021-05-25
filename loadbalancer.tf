@@ -1,5 +1,5 @@
 resource "aws_lb" "private" {
-  name               = "nlb-${local.name}"
+  name               = "lb-${local.name}-network-private-api"
   internal           = true
   load_balancer_type = "network"
   subnets            = var.private_subnet_ids
@@ -8,7 +8,7 @@ resource "aws_lb" "private" {
 
   tags = merge(
     {
-      Name = "nlb-apig-${local.name}"
+      Name = "lb-${local.name}-network-private-api"
     },
     local.tags,
   )
@@ -28,7 +28,7 @@ resource "aws_lb_listener" "forwarder" {
 }
 
 resource "aws_lb_target_group" "vpc_endpoints" {
-  name        = "api-gateway-target"
+  name        = "lb-tg-${var.environment}-t-${var.project}-${var.application_service}-api"
   port        = 443
   protocol    = "TLS"
   target_type = "ip"

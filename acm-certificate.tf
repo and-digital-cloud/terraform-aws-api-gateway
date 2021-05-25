@@ -6,7 +6,7 @@ module "acm" {
 
   tags = merge(
     {
-      Name = "crt-${local.name}"
+      Name = "crt-${local.name}-api-domain"
     },
     local.tags,
   )

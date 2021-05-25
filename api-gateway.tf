@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "private" {
-  name                         = "apig-${local.name}-private"
+  name                         = "api-${local.name}-private"
   disable_execute_api_endpoint = true
   endpoint_configuration {
     types            = ["PRIVATE"]
@@ -8,7 +8,7 @@ resource "aws_api_gateway_rest_api" "private" {
 
   tags = merge(
     {
-      Name = "apig-${local.name}-private"
+      Name = "api-${local.name}-private"
     },
     local.tags,
   )
@@ -25,7 +25,7 @@ resource "aws_api_gateway_domain_name" "public" {
 
   tags = merge(
     {
-      Name = "apig-domain-${local.name}"
+      Name = "api-domain-${local.name}-regional"
     },
     local.tags,
   )
@@ -58,7 +58,7 @@ resource "aws_api_gateway_stage" "this" {
 
   tags = merge(
     {
-      Name = "apig-stage-${local.name}"
+      Name = "api-stage-${local.name}-private"
     },
     local.tags,
   )
@@ -96,7 +96,7 @@ resource "aws_api_gateway_base_path_mapping" "this" {
 }
 
 resource "aws_api_gateway_request_validator" "basic" {
-  name                        = "basic-validator"
+  name                        = "basic-validator-api"
   rest_api_id                 = aws_api_gateway_rest_api.private.id
   validate_request_body       = true
   validate_request_parameters = true
