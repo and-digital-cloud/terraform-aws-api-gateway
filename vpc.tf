@@ -19,3 +19,4 @@ resource "aws_vpc_endpoint" "private" {
     local.tags,
   )
 }
+

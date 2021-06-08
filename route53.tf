@@ -5,3 +5,4 @@ resource "aws_route53_record" "api_public" {
   ttl     = "300"
   records = [aws_lb.private.dns_name]
 }
+

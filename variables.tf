@@ -57,3 +57,4 @@ variable "vpn_cidr_block" {
   type        = string
   default     = "10.7.0.0/24"
 }
+

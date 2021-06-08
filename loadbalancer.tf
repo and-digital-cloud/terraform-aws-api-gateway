@@ -1,5 +1,5 @@
 resource "aws_lb" "private" {
-  name               = "lb-${local.name}-network-private-api"
+  name               = "lb-${local.region_id}-${var.environment}-t-${substr(sha512("${var.project}-${var.application_service}"), 0, 7)}-pvt-api"
   internal           = true
   load_balancer_type = "network"
   subnets            = var.private_subnet_ids
@@ -8,7 +8,7 @@ resource "aws_lb" "private" {
 
   tags = merge(
     {
-      Name = "lb-${local.name}-network-private-api"
+      Name = "lb-${local.name}-private-api"
     },
     local.tags,
   )
@@ -28,7 +28,7 @@ resource "aws_lb_listener" "forwarder" {
 }
 
 resource "aws_lb_target_group" "vpc_endpoints" {
-  name        = "lb-tg-${var.environment}-t-${var.project}-${var.application_service}-api"
+  name        = "lb-tg-${local.region_id}-${var.environment}-t-${substr(sha512("${var.project}-${var.application_service}"), 0, 7)}-pvt-api"
   port        = 443
   protocol    = "TLS"
   target_type = "ip"
@@ -41,3 +41,4 @@ resource "aws_lb_target_group_attachment" "vpc_endpoint_ips" {
   target_group_arn = aws_lb_target_group.vpc_endpoints.arn
   target_id        = each.value.private_ip
 }
+

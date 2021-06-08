@@ -86,7 +86,7 @@ resource "aws_api_gateway_deployment" "this" {
 
   depends_on = [
     aws_api_gateway_method.get,
-    aws_api_gateway_integration.mock]
+  aws_api_gateway_integration.mock]
 }
 
 resource "aws_api_gateway_base_path_mapping" "this" {
@@ -127,3 +127,4 @@ resource "aws_api_gateway_rest_api_policy" "allow_from_vpc_endpoint_to_gateway" 
 resource "aws_api_gateway_account" "this" {
   cloudwatch_role_arn = aws_iam_role.cloudwatch.arn
 }
+
