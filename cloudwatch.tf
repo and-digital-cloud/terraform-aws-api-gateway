@@ -37,3 +37,4 @@ resource "aws_iam_policy_attachment" "cloudwatch_assume_role" {
   policy_arn = data.aws_iam_policy.gateway_to_cloudwatch.arn
   roles      = [aws_iam_role.cloudwatch.id]
 }
+

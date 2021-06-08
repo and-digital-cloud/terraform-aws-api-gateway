@@ -19,3 +19,4 @@ locals {
     "throttling_rate_limit"  = "100"
   }
 }
+

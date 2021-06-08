@@ -13,3 +13,4 @@ resource "aws_ssm_parameter" "root_resource_id" {
   value       = aws_api_gateway_rest_api.private.root_resource_id
   overwrite   = true
 }
+

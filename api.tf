@@ -17,3 +17,4 @@ resource "aws_api_gateway_integration" "mock" {
   http_method = aws_api_gateway_method.get.http_method
   type        = "MOCK"
 }
+

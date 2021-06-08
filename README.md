@@ -47,30 +47,78 @@ data "terraform_remote_state" "route53" {
 }
 ```
 
-## Providers
+## Requirements
+
 | Name | Version |
-|------|:-------:|
-| aws | `~> 3.29.1` |
+|------|---------|
+| aws | ~> 3.29.1 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | ~> 3.29.1 |
 
 ## Modules
+
+| Name | Source | Version |
+|------|--------|---------|
+| acm | git::ssh://git@gitlab.com/cef-cloud/core-modules/terraform/acm.git?ref=2.0.0 |  |
+
+## Resources
+
 | Name |
-|:----:|
-| acm |
+|------|
+| [aws_api_gateway_account](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_account) |
+| [aws_api_gateway_base_path_mapping](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_base_path_mapping) |
+| [aws_api_gateway_deployment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_deployment) |
+| [aws_api_gateway_domain_name](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_domain_name) |
+| [aws_api_gateway_integration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_integration) |
+| [aws_api_gateway_method](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method) |
+| [aws_api_gateway_method_settings](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_method_settings) |
+| [aws_api_gateway_request_validator](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_request_validator) |
+| [aws_api_gateway_resource](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_resource) |
+| [aws_api_gateway_rest_api](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api) |
+| [aws_api_gateway_rest_api_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_rest_api_policy) |
+| [aws_api_gateway_stage](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/api_gateway_stage) |
+| [aws_caller_identity](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/caller_identity) |
+| [aws_cloudwatch_log_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) |
+| [aws_iam_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy) |
+| [aws_iam_policy_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy_attachment) |
+| [aws_iam_policy_document](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/iam_policy_document) |
+| [aws_iam_role](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) |
+| [aws_lb](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb) |
+| [aws_lb_listener](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener) |
+| [aws_lb_target_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group) |
+| [aws_lb_target_group_attachment](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group_attachment) |
+| [aws_network_interface](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/network_interface) |
+| [aws_network_interfaces](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/network_interfaces) |
+| [aws_region](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/region) |
+| [aws_route53_record](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record) |
+| [aws_route53_zone](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/route53_zone) |
+| [aws_security_group](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group) |
+| [aws_security_group_rule](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule) |
+| [aws_ssm_parameter](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) |
+| [aws_vpc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc) |
+| [aws_vpc_endpoint](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint) |
+| [aws_vpc_endpoint_service](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/vpc_endpoint_service) |
 
 ## Inputs
 
-| Name | Description | Type | Default | Required|
-|------|-------------|------|---------|:-----:|
-| application\_role | The name of the application role, e.g. app_server | `string` | `api-gateway` | no |
-| application\_service | The name of the application service, e.g. infrastructure | `string` | `N/A` | yes |
-| compliance | An identifier for workloads designed to adhere to specific compliance requirements. none/pci | `string` | `pci` | no |
-| confidentiality | An identifier for the specific data-confidentiality level a resource supports. public/internal/confidential/highly confidential | `string` | `highly confidential` | no |
-| environment | The name of your environment, e.g. dev/test/uat/prod etc | `string` | `N/A` | yes |
-| prefix | The prefix for the domain name, e.g. api | `string` | `api` | no |
-| private\_subnet\_ids | The private subnet ids associated with the vpc | `list(string)` | `N/A` | no |
-| project | The name of your application project, e.g. shared | `string` | `N/A` | yes |
-| public\_zone | The public zone that the domain name will be placed within | `string` | `N/A` | yes |
-| public\_zone\_id | The id for the public zone that the domain will be placed within | `string` | `N/A` | yes |
-| vpc\_id | The vpc_id that the endpoint is placed within | `string` | `N/A` | yes |
-| vpc\_cidr\_block | The cidr block for the vpc the endpoint is placed within | `string` | `N/A` | yes |
-| vpn\_cidr\_block | The cidr block for the vpn | `string` | `10.7.0.0/24` | no |
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| application\_role | The name of the application role, e.g. app\_server | `string` | `"api-gateway"` | no |
+| application\_service | The name of the application service, e.g. infrastructure | `string` | n/a | yes |
+| compliance | An identifier for workloads designed to adhere to specific compliance requirements. none/pci | `string` | `"pci"` | no |
+| confidentiality | An identifier for the specific data-confidentiality level a resource supports. public/internal/confidential/highly confidential | `string` | `"highly confidential"` | no |
+| environment | The name of your environment, e.g. /dev/test/uat/prod etc | `string` | n/a | yes |
+| prefix | The prefix for the domain name, e.g. api | `string` | `"api"` | no |
+| private\_subnet\_ids | The private subnet ids associated with the vpc | `list(string)` | n/a | yes |
+| project | The name of your application project, e.g. shared, supplier | `string` | n/a | yes |
+| public\_zone\_name | The public zone that the domain name will be placed within | `string` | n/a | yes |
+| vpc\_id | The vpc\_id that the endpoint is placed within | `string` | n/a | yes |
+| vpn\_cidr\_block | The cidr block for the vpn | `string` | `"10.7.0.0/24"` | no |
+
+## Outputs
+
+No output.
