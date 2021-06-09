@@ -14,3 +14,11 @@ resource "aws_ssm_parameter" "root_resource_id" {
   overwrite   = true
 }
 
+resource "aws_ssm_parameter" "api_policy_json" {
+  name        = "/${var.environment}/${var.application_service}/api-policy-json"
+  description = "Policy to allow from vpc endpoint to api gateway"
+  type        = "SecureString"
+  value       = data.aws_iam_policy_document.allow_from_vpc_endpoint_to_gateway.json
+  overwrite   = true
+}
+
