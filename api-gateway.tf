@@ -93,6 +93,7 @@ resource "aws_api_gateway_base_path_mapping" "this" {
   api_id      = aws_api_gateway_rest_api.private.id
   stage_name  = aws_api_gateway_stage.this.stage_name
   domain_name = aws_api_gateway_domain_name.public.domain_name
+  base_path   = var.environment
 }
 
 resource "aws_api_gateway_request_validator" "basic" {
