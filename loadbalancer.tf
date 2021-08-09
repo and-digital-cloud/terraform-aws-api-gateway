@@ -28,7 +28,7 @@ resource "aws_lb_listener" "forwarder" {
 }
 
 resource "aws_lb_target_group" "vpc_endpoints" {
-  name        = "lb-tg-${local.region_id}-${var.environment}-t-${substr(sha512("${var.project}-${var.application_service}"), 0, 7)}-pvt-api"
+  name        = "tg-${local.region_id}-${var.environment}-t-${substr(sha512("${var.project}-${var.application_service}"), 0, 7)}-pvt-api"
   port        = 443
   protocol    = "TLS"
   target_type = "ip"
