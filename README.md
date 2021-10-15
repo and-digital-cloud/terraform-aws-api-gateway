@@ -12,7 +12,7 @@ provider "aws" {
 }
 
 module "api_gateway" {
-  source              = "https://github.com/and-digital-cloud/terraform-aws-api-gateway.git?ref=X.Y.Z"
+  source              = "git@github.com:and-digital-cloud/terraform-aws-api-gateway.git?ref=X.Y.Z"
 
   application_service = "service"
   environment         = "dev"
