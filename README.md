@@ -1,9 +1,9 @@
 ## API Gateway Module
 
 A terraform module to provide a private API Gateway within aws which is accessed via a custom domain name and routed through an NLB to a VPC endpoint.
-This includes a dummy API as this is required to build the stage. Further APIs can be deployed to the gateway using the parameters that are output to SSM.
+This includes a dummy API as this is required to build the stage and allows for testing. Further APIs can be deployed to the gateway using the parameters that are output to SSM.
 
-The url for the api gateway will be api.<public_zone> for example the supplier url is: api.supplier-service.dev.cefcloud.net
+The url for the api gateway will be api.<public_zone>
 
 ## Usage
 ```
@@ -12,12 +12,12 @@ provider "aws" {
 }
 
 module "api_gateway" {
-  source              = "git::ssh://git@gitlab.com:cef-cloud/core-modules/terraform/api-gateway.git?ref=1.0.0"
+  source              = "https://github.com/and-digital-cloud/terraform-aws-api-gateway.git?ref=X.Y.Z"
 
-  application_service = "rebate"
+  application_service = "service"
   environment         = "dev"
   private_subnet_ids  = data.terraform_remote_state.vpc.outputs.private_subnets
-  project             = "supplier"
+  project             = "project"
   public_zone_name    = data.terraform_remote_state.route53.outputs.public_zone_name
   vpc_id              = data.terraform_remote_state.vpc.outputs.vpc_id
 }
@@ -30,9 +30,9 @@ data "terraform_remote_state" "vpc" {
   backend = "s3"
 
   config = {
-    bucket = "s3-euw1-management-tf-shared-tools-tf-remote-state-001"
-    key    = "supplier-service/<environment>/<environment/other>/infrastucture/terraform.tfstate"
-    region = "eu-west-1"
+    bucket = "<bucket-name>"
+    key    = "<key>"
+    region = "<region>"
   }
 }
 
@@ -40,9 +40,9 @@ data "terraform_remote_state" "route53" {
   backend = "s3"
 
   config = {
-    bucket = "s3-euw1-management-tf-shared-tools-tf-remote-state-001"
-    key    = "supplier-service/<environment>/globals/route53/terraform.tfstate"
-    region = "eu-west-1"
+    bucket = "<bucket-name>"
+    key    = "<key>"
+    region = "<region>"
   }
 }
 ```
@@ -63,7 +63,7 @@ data "terraform_remote_state" "route53" {
 
 | Name | Source | Version |
 |------|--------|---------|
-| acm | git::ssh://git@gitlab.com/cef-cloud/core-modules/terraform/acm.git?ref=2.0.0 |  |
+| acm | https://github.com/terraform-aws-modules/terraform-aws-acm.git | 3.2 |
 
 ## Resources
 
@@ -114,7 +114,7 @@ data "terraform_remote_state" "route53" {
 | environment | The name of your environment, e.g. /dev/test/uat/prod etc | `string` | n/a | yes |
 | prefix | The prefix for the domain name, e.g. api | `string` | `"api"` | no |
 | private\_subnet\_ids | The private subnet ids associated with the vpc | `list(string)` | n/a | yes |
-| project | The name of your application project, e.g. shared, supplier | `string` | n/a | yes |
+| project | The name of your application project | `string` | n/a | yes |
 | public\_zone\_name | The public zone that the domain name will be placed within | `string` | n/a | yes |
 | vpc\_id | The vpc\_id that the endpoint is placed within | `string` | n/a | yes |
 | vpn\_cidr\_block | The cidr block for the vpn | `string` | `"10.7.0.0/24"` | no |

@@ -1,5 +1,6 @@
 module "acm" {
-  source = "git::ssh://git@gitlab.com/cef-cloud/core-modules/terraform/acm.git?ref=2.0.0"
+  source = "https://github.com/terraform-aws-modules/terraform-aws-acm.git"
+  version = "~> 3.2"
 
   domain_name = "${var.prefix}.${var.public_zone_name}"
   zone_id     = data.aws_route53_zone.public.id
